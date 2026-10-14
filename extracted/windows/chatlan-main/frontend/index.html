@@ -196,33 +196,6 @@
 
 <div id="resizeHandle" class="resize-handle"></div>
 
-<script>
-/* Startup diagnostics: prevent a silent black window if a frontend script fails. */
-(function () {
-  function showStartupError(message) {
-    let box = document.getElementById("startup-error");
-    if (!box) {
-      box = document.createElement("div");
-      box.id = "startup-error";
-      box.style.cssText = "position:fixed;z-index:999999;inset:32px 8px 8px;background:#171b24;color:#fff;padding:18px;font:13px/1.5 Segoe UI,sans-serif;overflow:auto;white-space:pre-wrap;border:1px solid #e05b66;border-radius:8px";
-      document.body.appendChild(box);
-    }
-    box.textContent = "ChatGlobal no pudo iniciar correctamente.\n\n" + String(message || "Error desconocido") + "\n\nCierra la aplicación y envía una captura de este mensaje.";
-  }
-  window.addEventListener("error", function (e) {
-    showStartupError((e.message || "Error de JavaScript") + (e.filename ? "\n" + e.filename + ":" + e.lineno : ""));
-  });
-  window.addEventListener("unhandledrejection", function (e) {
-    const reason = e.reason && (e.reason.stack || e.reason.message) || e.reason;
-    showStartupError("Promesa rechazada: " + String(reason));
-  });
-  window.addEventListener("DOMContentLoaded", function () {
-    if (!window.__TAURI__ || !window.__TAURI__.core || !window.__TAURI__.window) {
-      showStartupError("No se ha cargado la API de Tauri. Comprueba que estás usando el ejecutable oficial de ChatGlobal y que WebView2 está instalado.");
-    }
-  });
-})();
-</script>
 <script src="mic.js"></script>
 <script src="relay.js"></script>
 <script src="callserver.js"></script>
