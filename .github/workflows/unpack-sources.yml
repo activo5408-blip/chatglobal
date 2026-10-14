@@ -40,3 +40,5 @@ jobs:
             git commit -m "Extract Android, Windows, and server project sources"
             git push
           fi
+
+# Trigger extraction after initial workflow registration.
