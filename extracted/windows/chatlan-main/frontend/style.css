@@ -599,16 +599,3 @@ html, body {
 .resize-zone.tr { top: 0; right: 0; cursor: nesw-resize; }
 .resize-zone.bl { bottom: 0; left: 0; cursor: nesw-resize; }
 .resize-zone.br { bottom: 0; right: 0; cursor: nwse-resize; }
-
-
-/* Ensure the login controls remain interactive inside the Windows WebView. */
-#view-login, #view-login .login-card, #loginName, #connectBtn, #guestBtn {
-  pointer-events: auto;
-  -webkit-app-region: no-drag;
-}
-#loginName {
-  user-select: text !important;
-  -webkit-user-select: text !important;
-  cursor: text;
-}
-#connectBtn:disabled { opacity: .7; cursor: wait; }
