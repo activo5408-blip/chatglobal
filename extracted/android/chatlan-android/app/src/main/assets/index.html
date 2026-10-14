@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta charset="UTF-8" />
+<title>Hermes Messenger</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="call.css" />
+<link rel="stylesheet" href="android.css" />
+</head>
+<body>
+
+<div class="titlebar">
+  <div class="titlebar-title-area">
+    <span class="titlebar-title" id="titlebarTitle">Hermes Messenger</span>
+  </div>
+  <div class="titlebar-controls">
+    <button id="minBtn">&#8211;</button>
+    <button id="closeBtn" class="close">&#10005;</button>
+  </div>
+</div>
+
+<section id="view-login" class="view active">
+  <div class="login-card">
+    <div class="logo">
+      <img src="icons/AppIcon.png" class="logo-img" alt="Hermes Messenger" />
+      <h1>Hermes Messenger</h1>
+    </div>
+    <h2>Iniciar sesion</h2>
+    <input id="loginName" class="input" type="text" value="DESKTOP-7F3K2L1" autocomplete="off" spellcheck="false" />
+    <button id="connectBtn" class="btn-primary">Conectar</button>
+    <div class="or">o</div>
+    <button id="guestBtn" class="btn-secondary">Entrar como invitado</button>
+    <p class="status-line" id="statusLine">Escuchando en la red local...</p>
+    <p class="status-addr" id="statusAddr">192.168.1.100:42345</p>
+  </div>
+</section>
+
+<section id="view-contacts" class="view">
+  <div class="user-header">
+    <div class="avatar" id="userAvatar"></div>
+    <div class="user-header-name" id="userHeaderName"></div>
+    <button id="settingsBtn" class="settings-gear"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  </div>
+  <div class="online-separator">
+    <span id="contactsCount">En Linea (0)</span>
+  </div>
+  <ul id="contactsList" class="contacts-list"></ul>
+</section>
+
+<section id="view-chat" class="view">
+  <header class="chat-header">
+    <button id="backBtn"><svg class="ico back-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button>
+    <div class="chat-peer-avatar" id="chatPeerAvatar"></div>
+    <div class="chat-header-info">
+      <h2 id="chatPeerName">Chat con</h2>
+      <span class="online-dot" id="onlineDot">En linea</span>
+      <span class="typing-indicator" id="typingIndicator"></span>
+    </div>
+    <button id="chatMenuBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></button>
+  </header>
+  <div id="messages" class="messages"></div>
+  <div class="drag-overlay" id="dragOverlay"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg><span>Soltar para enviar</span></div>
+  <footer class="chat-input-bar-wrapper">
+    <div class="reply-preview" id="replyPreview">
+      <div class="reply-preview-content">
+        <span class="reply-preview-label">Respondiendo a <strong id="replyPreviewName"></strong></span>
+        <span class="reply-preview-text" id="replyPreviewText"></span>
+      </div>
+      <button id="replyPreviewClose" class="reply-preview-close">&#10005;</button>
+    </div>
+    <div class="chat-input-bar">
+      <div class="emoji-wrapper">
+        <button id="emojiBtn"><svg class="ico input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg></button>
+        <div class="emoji-popup" id="emojiPopup">
+          <div class="emoji-search-box">
+            <svg class="ico emoji-search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="emojiSearchInput" class="emoji-search-input" placeholder="Buscar emoji..." autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="emoji-grid" id="emojiGrid"></div>
+        </div>
+      </div>
+      <button id="attachBtn"><svg class="ico input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></button>
+      <textarea id="chatInput" class="input" placeholder="Escribe un mensaje..." autocomplete="off" rows="1"></textarea>
+      <button id="micBtn"><svg class="ico input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></button>
+      <button id="sendBtn" class="send-btn"><svg class="ico send-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+  </footer>
+</section>
+
+<section id="view-quickreply" class="view">
+  <div class="quickreply-card">
+    <header>
+      <span>Hermes Messenger - Respuesta rapida</span>
+      <button id="qrCloseBtn">&#10005;</button>
+    </header>
+    <div class="qr-body">
+      <div class="avatar-placeholder"></div>
+      <div>
+        <h3 id="qrPeerName">PC-GAMER</h3>
+        <p id="qrLastMessage">&iquest;Nos vemos en 5 minutos?</p>
+      </div>
+    </div>
+    <div class="qr-footer">
+      <input id="qrInput" class="input" placeholder="Escribe tu respuesta..." />
+      <button id="qrSendBtn" class="btn-primary">Enviar</button>
+    </div>
+  </div>
+</section>
+
+<section id="view-settings" class="view">
+  <header class="settings-header">
+    <button id="settingsBackBtn"><svg class="ico back-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button>
+    <h2>Ajustes</h2>
+  </header>
+  <div class="settings-body">
+    <div class="settings-group settings-avatar-group">
+      <div class="settings-avatar-preview clickable" id="settingsAvatarPreview" title="Click para cambiar avatar"></div>
+      <button id="settingsClearAvatar" class="btn-link-danger">Eliminar avatar</button>
+    </div>
+    <div class="settings-group">
+      <label class="settings-label">Nick</label>
+      <input id="settingsNick" class="input" autocomplete="off" spellcheck="false" />
+    </div>
+    <div class="settings-group">
+      <label class="settings-label">Dispositivo de Grabacion</label>
+      <select id="settingsAudioDevice" class="input"></select>
+    </div>
+    <div class="settings-group">
+      <label class="settings-label">Sonido de notificacion</label>
+      <label class="toggle">
+        <input type="checkbox" id="settingsSoundToggle" checked />
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div class="settings-group">
+      <label class="settings-label">Tamaño de fuente: <span id="fontSizeVal">14</span>px</label>
+      <input type="range" id="settingsFontSize" min="11" max="20" value="14" class="settings-range" />
+    </div>
+    <div class="settings-group">
+      <label class="settings-label">Tamaño de emojis: <span id="emojiSizeVal">20</span>px</label>
+      <input type="range" id="settingsEmojiSize" min="14" max="36" value="20" class="settings-range" />
+    </div>
+    <div class="settings-group settings-apply-group">
+      <button id="settingsApplyBtn" class="btn-primary">Aplicar</button>
+    </div>
+  </div>
+</section>
+
+<div id="contextMenu" class="context-menu">
+  <div class="ctx-reactions" id="ctxReactions">
+    <button class="ctx-rx-btn" data-emoji="👍" title="Me gusta">👍</button>
+    <button class="ctx-rx-btn" data-emoji="❤️" title="Amor">❤️</button>
+    <button class="ctx-rx-btn" data-emoji="😂" title="Risa">😂</button>
+    <button class="ctx-rx-btn" data-emoji="😮" title="Sorpresa">😮</button>
+    <button class="ctx-rx-btn" data-emoji="😢" title="Triste">😢</button>
+    <button class="ctx-rx-btn" data-emoji="🙏" title="Gracias">🙏</button>
+    <button class="ctx-rx-btn ctx-more-btn" id="ctxMoreRx" title="Más reacciones">➕</button>
+  </div>
+  <div class="context-menu-divider"></div>
+  <button id="ctxReply" class="context-menu-item">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
+    Responder
+  </button>
+  <button id="ctxDelete" class="context-menu-item ctx-danger">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+    Eliminar
+  </button>
+</div>
+
+<div id="floatingReactions" class="floating-reactions">
+  <button class="rx-quick-btn" data-emoji="👍" title="Me gusta">👍</button>
+  <button class="rx-quick-btn" data-emoji="❤️" title="Amor">❤️</button>
+  <button class="rx-quick-btn" data-emoji="😂" title="Risa">😂</button>
+  <button class="rx-quick-btn" data-emoji="😮" title="Sorpresa">😮</button>
+  <button class="rx-quick-btn" data-emoji="😢" title="Triste">😢</button>
+  <button class="rx-quick-btn" data-emoji="🙏" title="Gracias">🙏</button>
+  <button class="rx-quick-btn rx-more-btn" id="floatingMoreRx" title="Más reacciones">➕</button>
+</div>
+
+<div id="reactionEmojiDialog" class="reaction-emoji-dialog">
+  <div class="emoji-search-box">
+    <svg class="ico emoji-search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="reactionEmojiSearch" class="emoji-search-input" placeholder="Buscar emoji para reaccionar..." autocomplete="off" spellcheck="false" />
+  </div>
+  <div class="emoji-grid" id="reactionEmojiGrid"></div>
+</div>
+
+<div id="confirmModal" class="confirm-modal">
+  <div class="confirm-card">
+    <p id="confirmText"></p>
+    <div class="confirm-actions">
+      <button id="confirmYes" class="btn-primary">Eliminar</button>
+      <button id="confirmNo" class="btn-secondary">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="resizeHandle" class="resize-handle"></div>
+
+<script src="android-shim.js"></script>
+<script src="mic.js"></script>
+<script src="relay.js"></script>
+<script src="callserver.js"></script>
+<script src="app.js"></script>
+<script src="call.js"></script>
+</body>
+</html>

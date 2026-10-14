@@ -1,0 +1,36 @@
+{
+  "productName": "Hermes Messenger",
+  "version": "0.1.0",
+  "identifier": "com.chatlan.desktop",
+  "build": {
+    "frontendDist": "../frontend"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "ChatLAN",
+        "width": 380,
+        "height": 560,
+        "minWidth": 320,
+        "minHeight": 400,
+        "decorations": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": null
+    },
+    "withGlobalTauri": true
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": ["icons/icon.ico", "icons/icon.png"],
+    "resources": ["../frontend/Incoming.mp3"],
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser"
+      }
+    }
+  }
+}

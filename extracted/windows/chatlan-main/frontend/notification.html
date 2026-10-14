@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: #1e1e2e;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+  .card {
+    background: #1e1e2e;
+    width: 100%;
+    height: 100%;
+    padding: 12px 14px;
+    cursor: pointer;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .app-icon { width: 18px; height: 18px; border-radius: 4px; }
+  .app-name { font-size: 11px; color: #a6adc8; flex: 1; }
+  .close-btn {
+    background: none; border: none;
+    color: #a6adc8; font-size: 16px;
+    cursor: pointer; padding: 0 4px; line-height: 1;
+  }
+  .close-btn:hover { color: #cdd6f4; }
+  .body-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .notif-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #313244; display: flex; align-items: center;
+    justify-content: center; font-weight: 700; font-size: 13px;
+    color: #a6adc8; flex-shrink: 0; overflow: hidden;
+  }
+  .notif-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .text-col { flex: 1; min-width: 0; }
+  .sender { font-weight: 600; color: #cdd6f4; font-size: 13px; margin-bottom: 2px; }
+  .msg-body {
+    color: #bac2de;
+    font-size: 13px;
+    line-height: 1.3;
+    word-break: break-word;
+    max-height: 40px;
+    overflow: hidden;
+  }
+  .reply-bar {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .reply-bar input {
+    flex: 1;
+    background: #313244;
+    border: 1px solid #45475a;
+    border-radius: 8px;
+    padding: 6px 10px;
+    color: #cdd6f4;
+    font-size: 12px;
+    outline: none;
+  }
+  .reply-bar input:focus { border-color: #89b4fa; }
+  .reply-bar button {
+    background: #89b4fa;
+    border: none;
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reply-bar button:hover { background: #74c7ec; }
+  .reply-bar button svg { width: 14px; height: 14px; color: #fff; }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="header">
+      <img src="icons/AppIcon.png" class="app-icon" alt="" />
+      <span class="app-name">Hermes Messenger</span>
+      <button class="close-btn" id="closeBtn">&times;</button>
+    </div>
+    <div class="body-row">
+      <div class="notif-avatar" id="notifAvatar"></div>
+      <div class="text-col">
+        <div class="sender" id="sender"></div>
+        <div class="msg-body" id="msgBody"></div>
+      </div>
+    </div>
+    <div class="reply-bar" id="replyBar">
+      <input id="replyInput" placeholder="Escribir respuesta..." />
+      <button id="replyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+  </div>
+  <script src="notification.js"></script>
+</body>
+</html>

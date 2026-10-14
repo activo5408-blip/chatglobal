@@ -1,0 +1,81 @@
+.call-hdr-btn { background: none; border: none; color: var(--text, #eef2f8); padding: 8px; cursor: pointer; border-radius: 8px; }
+.call-hdr-btn:hover { background: var(--panel-alt, #182233); }
+.call-hdr-btn .ico { width: 20px; height: 20px; display: block; }
+#callOverlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(8,12,20,.97); overflow: hidden;
+  flex-direction: column; align-items: center; justify-content: center; user-select: none; }
+#callOverlay.show { display: flex; }
+#callOverlay video { position: absolute; background: #000; }
+#callOverlay #callRemote { inset: 0; width: 100%; height: 100%; object-fit: cover; visibility: hidden; }
+#callOverlay.has-video #callRemote { visibility: visible; }
+#callOverlay #callLocal { right: 12px; bottom: 96px; width: 104px; height: 140px; object-fit: cover; border-radius: 12px;
+  transform: scaleX(-1); visibility: hidden; z-index: 2; border: 1px solid var(--border, #22304a); }
+#callOverlay.has-local #callLocal { visibility: visible; }
+#callOverlay .call-info { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 24px; }
+#callOverlay.has-video .call-info { position: absolute; top: 0; left: 0; right: 0; padding-top: 28px;
+  background: linear-gradient(rgba(0,0,0,.55), transparent); }
+#callOverlay.has-video .call-avatar { display: none; }
+#callOverlay .call-avatar { width: 96px; height: 96px; border-radius: 50%; background: var(--accent, #2f7cf6); display: flex;
+  align-items: center; justify-content: center; color: #fff; }
+#callOverlay .call-avatar .ico { width: 44px; height: 44px; }
+#callOverlay .call-name { font-size: 24px; font-weight: 600; color: var(--text, #eef2f8); text-align: center; word-break: break-word; }
+#callOverlay .call-status { font-size: 16px; color: var(--text-dim, #93a0b4); min-height: 22px; text-align: center; }
+#callOverlay .call-actions { position: absolute; bottom: 24px; left: 0; right: 0; z-index: 3; display: flex; gap: 10px;
+  flex-wrap: wrap; justify-content: center; padding: 0 12px; }
+#callOverlay .call-btn { border: none; border-radius: 28px; padding: 12px 20px; font-size: 15px; color: #fff; cursor: pointer; }
+#callOverlay .call-btn.red { background: #e5484d; }
+#callOverlay .call-btn.green { background: var(--online, #33c17a); }
+#callOverlay .call-btn.dim { background: var(--panel-alt, #182233); border: 1px solid var(--border, #22304a); }
+#callOverlay .call-btn.dim.on { background: var(--accent, #2f7cf6); }
+
+/* ---- servidor de llamadas / grupales ---- */
+#srvCall { display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(8,12,20,.98); flex-direction: column; user-select: none; }
+#srvCall.show { display: flex; }
+#srvCall .srv-top { padding: 22px 16px 8px; text-align: center; }
+#srvCall .srv-title { font-size: 20px; font-weight: 600; color: var(--text, #eef2f8); word-break: break-word; }
+#srvCall .srv-sub { font-size: 14px; color: var(--text-dim, #93a0b4); min-height: 20px; margin-top: 4px; }
+#srvCall .srv-center { display: flex; justify-content: center; padding: 18px; }
+#srvCall.flash .srv-top { margin: auto; }
+#srvCall .srv-grid { flex: 1; min-height: 0; display: grid; gap: 8px; padding: 8px 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); grid-auto-rows: minmax(120px, 1fr); }
+#srvCall.is-incoming .srv-grid, #srvCall.flash .srv-grid { display: none; }
+#srvCall .srv-tile { position: relative; background: #0b101a; border: 1px solid var(--border, #22304a); border-radius: 12px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; min-height: 0; }
+#srvCall .srv-tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; visibility: hidden; background: #000; }
+#srvCall .srv-tile.has-video video { visibility: visible; }
+#srvCall .srv-tile.local video { transform: scaleX(-1); }
+#srvCall .srv-tile:not(.has-video)::before { content: ""; width: 56px; height: 56px; border-radius: 50%; background: var(--accent, #2f7cf6); opacity: .85; }
+#srvCall .srv-name { position: absolute; left: 8px; bottom: 6px; font-size: 12px; color: #fff; background: rgba(0,0,0,.5); padding: 2px 8px; border-radius: 10px; max-width: 80%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#srvCall .srv-state { position: absolute; right: 8px; top: 6px; font-size: 11px; color: #fff; background: rgba(0,0,0,.5); padding: 2px 8px; border-radius: 10px; }
+#srvCall .srv-state:empty { display: none; }
+#srvCall .srv-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; padding: 12px 12px 22px; }
+#srvCall .call-btn, #srvPicker .call-btn { border: none; border-radius: 28px; padding: 12px 20px; font-size: 15px; color: #fff; cursor: pointer; }
+#srvCall .call-btn.red { background: #e5484d; } #srvCall .call-btn.green, #srvPicker .call-btn.green { background: var(--online, #33c17a); }
+#srvCall .call-btn.dim, #srvPicker .call-btn.dim { background: var(--panel-alt, #182233); border: 1px solid var(--border, #22304a); }
+#srvCall .call-btn.dim.on { background: var(--accent, #2f7cf6); }
+#srvPicker { display: none; position: fixed; inset: 0; z-index: 10001; background: rgba(0,0,0,.6); align-items: center; justify-content: center; padding: 16px; }
+#srvPicker.show { display: flex; }
+#srvPicker .srv-pk-box { background: var(--panel, #131b29); border: 1px solid var(--border, #22304a); border-radius: 14px; padding: 16px; width: 100%; max-width: 360px; max-height: 80vh; display: flex; flex-direction: column; gap: 12px; color: var(--text, #eef2f8); }
+#srvPicker h3 { font-size: 16px; }
+#srvPicker .srv-pk-list { overflow-y: auto; display: flex; flex-direction: column; gap: 6px; min-height: 60px; }
+#srvPicker .srv-pk-row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 8px; background: var(--panel-alt, #182233); cursor: pointer; }
+#srvPicker .srv-pk-empty { color: var(--text-dim, #93a0b4); font-size: 13px; padding: 8px; }
+#srvPicker .srv-pk-video { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+#srvPicker .srv-pk-actions { display: flex; gap: 10px; justify-content: flex-end; }
+.srv-cfg-status { font-size: 12px; color: var(--text-dim, #93a0b4); min-height: 16px; }
+.srv-cfg-hint { font-size: 11px; color: var(--text-dim, #93a0b4); }
+
+#srvToast { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); max-width: 92%; z-index: 20000; display: none;
+  padding: 10px 16px; border-radius: 12px; font-size: 13px; color: #fff; background: #26344d; box-shadow: 0 4px 18px rgba(0,0,0,.45);
+  text-align: center; pointer-events: none; }
+#srvToast.show { display: block; }
+#srvToast.ok { background: #1f8f5a; } #srvToast.err { background: #b3343a; } #srvToast.busy { background: #2f5fbf; }
+.srv-cfg-status.ok { color: #33c17a; } .srv-cfg-status.err { color: #ff6b70; } .srv-cfg-status.busy { color: #8fb4ff; }
+
+/* ---- medidor y volumen del micrófono ---- */
+.mic-row { display: flex; gap: 10px; align-items: stretch; }
+.mic-row select { flex: 1; min-width: 0; }
+.mic-meter { position: relative; width: 14px; min-height: 38px; border-radius: 7px; overflow: hidden;
+  background: var(--panel-alt, #182233); border: 1px solid var(--border, #22304a); flex: none; }
+.mic-meter-fill { position: absolute; inset: 0; clip-path: inset(100% 0 0 0);
+  background: linear-gradient(to top, #33c17a 0%, #33c17a 55%, #e5c17c 78%, #e5484d 100%); }
+.mic-meter-msg { font-size: 11px; color: var(--text-dim, #93a0b4); }

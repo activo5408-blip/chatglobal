@@ -1,0 +1,22 @@
+services:
+  calls:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8443:8443"     # solo local: pon nginx/Caddy delante con TLS
+  coturn:                         # opcional (quita este bloque si no usas TURN)
+    image: coturn/coturn:latest
+    restart: unless-stopped
+    network_mode: host
+    command:
+      - "-n"
+      - "--log-file=stdout"
+      - "--use-auth-secret"
+      - "--static-auth-secret=${TURN_SECRET}"
+      - "--realm=chatlan"
+      - "--fingerprint"
+      - "--no-cli"
+      - "--no-multicast-peers"
+      - "--min-port=49160"
+      - "--max-port=49200"
