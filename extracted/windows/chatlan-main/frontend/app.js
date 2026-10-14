@@ -219,20 +219,39 @@ async function applyNick() {
   }
 }
 
-document.getElementById("connectBtn").onclick = async () => {
-  await applyNick();
-  await invoke("start_discovery");
-  showView("contacts");
-  refreshPeers();
-  setInterval(refreshPeers, 3000);
-};
-document.getElementById("guestBtn").onclick = async () => {
-  await applyNick();
-  await invoke("start_discovery");
-  showView("contacts");
-  refreshPeers();
-  setInterval(refreshPeers, 3000);
-};
+let peerRefreshTimer = null;
+async function connectToChat() {
+  const status = document.getElementById("statusLine");
+  const nick = document.getElementById("loginName").value.trim();
+  if (!nick) {
+    status.textContent = "Escribe un nombre para continuar.";
+    document.getElementById("loginName").focus();
+    return;
+  }
+  const connect = document.getElementById("connectBtn");
+  connect.disabled = true;
+  status.textContent = "Conectando...";
+  try {
+    await applyNick();
+    await invoke("start_discovery");
+    showView("contacts");
+    await refreshPeers();
+    if (peerRefreshTimer) clearInterval(peerRefreshTimer);
+    peerRefreshTimer = setInterval(() => refreshPeers().catch(err => console.error("[peers]", err)), 3000);
+    status.textContent = "Conectado a la red local.";
+  } catch (err) {
+    console.error("[ChatGlobal] no se pudo iniciar:", err);
+    status.textContent = "No se pudo iniciar: " + String(err?.message || err);
+  } finally {
+    connect.disabled = false;
+  }
+}
+document.getElementById("connectBtn").onclick = connectToChat;
+document.getElementById("guestBtn").onclick = connectToChat;
+document.getElementById("loginName").addEventListener("input", () => {
+  const status = document.getElementById("statusLine");
+  if (status.textContent.startsWith("Escribe un nombre")) status.textContent = "Listo para conectar.";
+});
 
 document.getElementById("loginName").addEventListener("keydown", (e) => {
   if (e.key === "Enter") document.getElementById("connectBtn").click();
@@ -1641,4 +1660,17 @@ async function sendDroppedFile(path) {
   }
 }
 
-init();
+init().catch(err => {
+  console.error("[ChatGlobal] error al inicializar:", err);
+  const status = document.getElementById("statusLine");
+  if (status) status.textContent = "Inicio parcial; puedes intentar conectar. Error: " + String(err?.message || err);
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const nameInput = document.getElementById("loginName");
+  if (nameInput) {
+    nameInput.disabled = false;
+    nameInput.readOnly = false;
+    nameInput.setAttribute("tabindex", "0");
+  }
+});
