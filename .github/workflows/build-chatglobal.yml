@@ -54,7 +54,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: chatglobal-windows-executable
-          path: extracted/windows/chatlan-main/src-tauri/target/release/chatlan-main.exe
+          path: extracted/windows/chatlan-main/src-tauri/target/release/chatlan.exe
           if-no-files-found: warn
 
 # Trigger initial validation run.
