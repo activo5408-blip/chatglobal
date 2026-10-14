@@ -1,4 +1,4 @@
-// Servidor de llamadas (opcional): llamadas, videollamadas y llamadas grupales a través de tu propio servidor.
+// Servidor de presencia y chat (necesario fuera de la LAN): llamadas, videollamadas y llamadas grupales a través de tu propio servidor.
 // Sin servidor configurado, la app sigue funcionando 100 % P2P por la red local (call.js).
 // Protocolo: WebSocket JSON contra chatlan-server (ver README del servidor). Medios: malla WebRTC.
 (function () {
@@ -645,7 +645,7 @@
       '<label class="settings-label" style="display:flex;align-items:center;gap:10px;">Usar el servidor (chat, archivos y llamadas)' +
       '<span class="toggle"><input type="checkbox" id="srvCfgOn" /><span class="toggle-slider"></span></span></label>' +
       '<div class="srv-cfg-status" id="srvCfgStatus"></div>' +
-      '<div class="srv-cfg-hint">Pulsa Aplicar para guardar y probar la conexión. Con el servidor verás a todos los conectados y podrás chatear, enviar archivos y llamar aunque no estén en tu red. En la misma LAN todo sigue yendo directo.</div>';
+      '<div class="srv-cfg-hint">Pulsa Aplicar y activa “Usar el servidor”. Android y Windows deben usar la misma URL y API key. Sin el servidor solo se detectan equipos de la red local; con el servidor se comparten usuarios y mensajes por Internet. En la misma LAN, los mensajes siguen yendo directos.</div>';
     applyGroup.parentElement.insertBefore(g, applyGroup);
     const u = g.querySelector("#srvCfgUrl"), k = g.querySelector("#srvCfgKey"), on = g.querySelector("#srvCfgOn");
     u.value = cfg.url; k.value = cfg.key; on.checked = cfg.enabled;
