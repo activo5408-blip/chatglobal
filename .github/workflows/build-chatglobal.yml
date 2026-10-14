@@ -56,3 +56,5 @@ jobs:
           name: chatglobal-windows-executable
           path: extracted/windows/chatlan-main/src-tauri/target/release/chatlan-main.exe
           if-no-files-found: warn
+
+# Trigger initial validation run.
