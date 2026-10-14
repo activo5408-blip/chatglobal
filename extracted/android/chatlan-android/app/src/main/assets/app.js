@@ -258,7 +258,7 @@ async function refreshPeers() {
   const selfName = document.getElementById("loginName").value.trim();
   document.getElementById("userHeaderName").textContent = selfName;
   updateAvatarDisplay();
-  document.getElementById("contactsCount").textContent = `En Línea (${peers.length})`;
+  document.getElementById("contactsCount").textContent = `En Línea (${peers.filter(p => p.online).length})`;
   const list = document.getElementById("contactsList");
   list.innerHTML = "";
   peers.forEach(p => {
